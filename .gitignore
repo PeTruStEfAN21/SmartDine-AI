@@ -1,0 +1,25 @@
+# Dependențe 
+node_modules/
+dist/
+build/
+
+# Securitate 
+.env
+.env.local
+config.json
+
+# Baze de date locale 
+*.db
+*.sqlite
+
+# Sisteme de operare & IDE-uri
+.DS_Store
+.vscode/
+.idea/
+npm-debug.log*
+
+# Python 
+__pycache__/
+*.py[cod]
+venv/
+.venv/
