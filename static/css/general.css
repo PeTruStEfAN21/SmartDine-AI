@@ -1,0 +1,128 @@
+:root {
+    --primary-dark: #12110f;
+    --accent-gold: #dcb37b;
+    --bg-light: #f7f5f0;
+    --card-bg: #ffffff;
+    --text-main: #2c2825;
+    --text-muted: #6c757d;
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-main);
+    font-family: 'Lato', sans-serif;
+    padding-top: 80px; /* Spatiu pentru bara de navigare fixa */
+}
+
+/* Tipografie eleganta pentru titluri */
+h1, h2, h3, h4, h5, .brand-font {
+    font-family: 'Playfair Display', serif;
+}
+
+/* Bara de navigare - Stil Aplicație */
+.navbar-app {
+    background-color: var(--primary-dark);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.navbar-app .navbar-brand {
+    color: var(--accent-gold);
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* Filtre Categorii (Butoane) */
+.category-filter {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.filter-btn {
+    background-color: transparent;
+    border: 1px solid var(--primary-dark);
+    color: var(--primary-dark);
+    border-radius: 30px;
+    padding: 8px 20px;
+    white-space: nowrap;
+    transition: all 0.3s;
+}
+
+.filter-btn.active, .filter-btn:hover {
+    background-color: var(--primary-dark);
+    color: var(--accent-gold);
+}
+
+/* Cardurile Produselor (Perfecte pt o bucla in Django) */
+.product-card {
+    background-color: var(--card-bg);
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+    transition: transform 0.3s, box-shadow 0.3s;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.product-img {
+    height: 220px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.product-body {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.product-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    flex-grow: 1; /* Impinge pretul si butonul jos */
+}
+
+.product-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product-price {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+}
+
+.btn-add-cart {
+    background-color: var(--primary-dark);
+    color: var(--accent-gold);
+    border: none;
+    border-radius: 10px;
+    padding: 8px 16px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.btn-add-cart:hover {
+    background-color: #2a2623;
+    color: #fff;
+}

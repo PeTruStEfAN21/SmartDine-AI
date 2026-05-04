@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meniu | A La Carte OS</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts Elegante -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/9c4030b637.js" crossorigin="anonymous"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../static/css/general.css">
+</head>
+<body>
+
+    <!-- Bara nav fixa -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-app">
+        <div class="container">
+            <a class="navbar-brand brand-font" href="#">A La Carte.</a>
+            <div class="ms-auto d-flex gap-3">
+                <button class="btn btn-outline-light border-0">
+                    <a href="index.html" class="text-decoration-none text-light">Autentificare</a>
+                </button>
+                
+                <button class="btn" style="background-color: var(--accent-gold); color: var(--primary-dark); font-weight: bold;" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartPanel" aria-controls="cartPanel">
+                    <i class="fa-solid fa-receipt"></i> Coș (2)
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Continutul Principal al Meniului -->
+    <div class="container mb-5">
+        <div class="d-flex justify-content-between align-items-end mt-4 mb-4">
+            <h2 class="brand-font mb-0">Comandă Acum</h2>
+            <p class="text-muted mb-0 d-none d-md-block">Alege din selecția noastră premium</p>
+        </div>
+
+        <!-- Filtre Categorii -->
+        <div class="category-filter">
+            <button class="filter-btn active">Toate Produsele</button>
+            <button class="filter-btn">Signature Dishes</button>
+            <button class="filter-btn">Garnituri</button>
+            <button class="filter-btn">Băuturi</button>
+        </div>
+
+        <!-- Grila de Produse -->
+        <div class="row g-4 mt-2">
+            
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?q=80&w=1000&auto=format&fit=crop" class="product-img" alt="Filet Mignon">
+                    <div class="product-body">
+                        <h4 class="product-title">Fillet Mignon</h4>
+                        <p class="product-desc">Mușchiuleț de vită maturat 21 de zile, piure de trufe, sparanghel tras în unt și jus de vițel.</p>
+                        <div class="product-footer">
+                            <span class="product-price">180 Lei</span>
+                            <button class="btn-add-cart">+ Adaugă</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1633504581786-316c8002b1b9?q=80&w=1000&auto=format&fit=crop" class="product-img" alt="Risotto">
+                    <div class="product-body">
+                        <h4 class="product-title">Risotto cu Fructe de Mare</h4>
+                        <p class="product-desc">Orez arborio fin, scoici Saint Jacques, creveți tiger, șofran infuzat și parmezan maturat.</p>
+                        <div class="product-footer">
+                            <span class="product-price">125 Lei</span>
+                            <button class="btn-add-cart">+ Adaugă</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=1000&auto=format&fit=crop" class="product-img" alt="Somon">
+                    <div class="product-body">
+                        <h4 class="product-title">Somon Sălbatic Glazurat</h4>
+                        <p class="product-desc">File de somon sălbatic, piure de mazăre fină, sos de lămâie cu capere și microplante.</p>
+                        <div class="product-footer">
+                            <span class="product-price">95 Lei</span>
+                            <button class="btn-add-cart">+ Adaugă</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- PANOUL LATERAL PENTRU COS (Offcanvas) -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="cartPanel" aria-labelledby="cartPanelLabel">
+        
+        <div class="offcanvas-header border-bottom">
+            <h5 class="offcanvas-title brand-font" id="cartPanelLabel" style="font-size: 1.5rem;">Comanda Ta</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Închide"></button>
+        </div>
+        
+        <div class="offcanvas-body d-flex flex-column">
+            
+            <!-- Lista de produse din cos (Mock Data) -->
+            <div class="flex-grow-1 overflow-auto">
+                
+                <!-- Produs 1 in cos -->
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <h6 class="mb-0" style="font-weight: 700;">Filet Mignon</h6>
+                        <small class="text-muted">1 buc x 180 Lei</small>
+                    </div>
+                    <span class="fw-bold">180 Lei</span>
+                    <!-- Buton de stergere din cos -->
+                    <button class="btn btn-sm btn-outline-danger border-0">🗑️</button>
+                </div>
+
+                <!-- Produs 2 in cos -->
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <h6 class="mb-0" style="font-weight: 700;">Risotto cu Fructe de Mare</h6>
+                        <small class="text-muted">1 buc x 125 Lei</small>
+                    </div>
+                    <span class="fw-bold">125 Lei</span>
+                    <button class="btn btn-sm btn-outline-danger border-0">🗑️</button>
+                </div>
+
+            </div>
+
+            <!-- Sectiunea de Total si Buton Checkout -->
+            <div class="border-top pt-3 mt-3">
+                <div class="d-flex justify-content-between mb-3">
+                    <span class="fs-5 text-muted">Total estimat:</span>
+                    <span class="fs-4 fw-bold" style="color: var(--primary-dark);">305 Lei</span>
+                </div>
+                
+                <button class="btn w-100" style="background-color: var(--primary-dark); color: var(--accent-gold); padding: 12px; font-size: 1.1rem; border-radius: 12px; font-weight: bold; letter-spacing: 1px;">
+                    Trimite Comanda →
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Bootstrap JS pt offcanvas -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

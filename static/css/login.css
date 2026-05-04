@@ -1,0 +1,167 @@
+/* Paleta Fine Dining */
+:root {
+    --primary-dark: #12110f;
+    --accent-gold: #dcb37b;
+    --text-light: #f7f5f0;
+    --text-muted: #c7c2ba; 
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Lato', sans-serif;
+    background-color: var(--primary-dark);
+}
+
+.brand-font {
+    font-family: 'Playfair Display', serif;
+}
+
+/* Containerul de fundal cu overlay intunecat */
+.login-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    background-image: linear-gradient(rgba(18, 17, 15, 0.75), rgba(18, 17, 15, 0.9)), url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+}
+
+.text-muted {
+    color: var(--text-muted) !important;
+}
+
+/* Caseta eleganta */
+.login-card {
+    background-color: rgba(18, 17, 15, 0.85);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(220, 179, 123, 0.2);
+    border-radius: 12px;
+    padding: 3.5rem 3rem;
+    width: 100%;
+    max-width: 480px;
+    color: var(--text-light);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+.login-card h1 {
+    color: var(--accent-gold);
+    font-size: 2.8rem;
+    letter-spacing: 2px;
+}
+
+/* Selector Roluri */
+.role-selector {
+    background-color: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    padding: 4px;
+    margin-bottom: 2rem;
+}
+
+.role-selector .btn {
+    color: var(--text-muted);
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 10px;
+    transition: all 0.3s;
+}
+
+.role-selector .btn:hover {
+    color: var(--text-light);
+}
+
+.role-selector .btn-check:checked + .btn {
+    background-color: var(--primary-dark);
+    color: var(--accent-gold);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    font-weight: bold;
+}
+
+/* Stiluri pentru sectiunea QR */
+.qr-instruction-box {
+    border: 1px dashed rgba(220, 179, 123, 0.4);
+    border-radius: 12px;
+    padding: 2rem 1rem;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.02);
+    margin-bottom: 1rem;
+}
+
+.qr-icon {
+    width: 60px;
+    height: 60px;
+    fill: var(--accent-gold);
+    margin-bottom: 1rem;
+    opacity: 0.8;
+}
+
+.fallback-link {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.fallback-link:hover {
+    color: var(--accent-gold);
+}
+
+/* Input-uri */
+.form-label {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--accent-gold);
+    margin-bottom: 0.5rem;
+}
+
+.form-control {
+    background-color: transparent;
+    border: 1px solid rgba(247, 245, 240, 0.2);
+    color: var(--text-light);
+    border-radius: 0;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    padding: 10px 0;
+    font-size: 1.1rem;
+}
+
+.form-control:focus {
+    background-color: transparent;
+    color: var(--text-light);
+    border-color: var(--accent-gold);
+    box-shadow: none;
+    outline: none;
+}
+
+.form-control::placeholder {
+    color: rgba(168, 163, 157, 0.4);
+}
+
+/* Butonul principal */
+.btn-elegant {
+    background-color: var(--accent-gold);
+    color: var(--primary-dark);
+    border: none;
+    border-radius: 4px;
+    padding: 14px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: 0.3s ease;
+    margin-top: 1.5rem;
+}
+
+.btn-elegant:hover {
+    background-color: #f7f5f0;
+    color: var(--primary-dark);
+    transform: translateY(-2px);
+}
