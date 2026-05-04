@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autentificare | A La Carte</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS-ul nostru separat -->
+    <link rel="stylesheet" href="../static/css/login.css">
+</head>
+<body>
+
+    <div class="login-wrapper">
+        <div class="login-card">
+            
+            <div class="text-center mb-4">
+                <h1 class="brand-font mb-2">A La Carte.</h1>
+                <p class="text-muted" style="letter-spacing: 1px; font-size: 0.9rem;">SISTEM DE OPERARE PENTRU RESTAURANTE</p>
+            </div>
+
+            <!-- Selectorul de Rol -->
+            <div class="btn-group d-flex role-selector" role="group">
+                <input type="radio" class="btn-check" name="roleType" id="roleUser" value="user" checked autocomplete="off">
+                <label class="btn w-100" for="roleUser">Client</label>
+
+                <input type="radio" class="btn-check" name="roleType" id="roleStaff" value="staff" autocomplete="off">
+                <label class="btn w-100" for="roleStaff">Staff</label>
+
+                <input type="radio" class="btn-check" name="roleType" id="roleAdmin" value="admin" autocomplete="off">
+                <label class="btn w-100" for="roleAdmin">Admin</label>
+            </div>
+
+            <!-- 1. FORMULAR: CLIENT (Modificat pentru QR) -->
+            <form id="formUser" class="auth-form">
+                
+                <!-- Mesajul Principal QR -->
+                <div id="qrInstruction" class="qr-instruction-box">
+                    <!-- Iconita SVG eleganta cu un cod QR -->
+                    <svg class="qr-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 3h6v6H3V3zm2 2v2h2V5H5zm8-2h6v6h-6V3zm2 2v2h2V5h-2zM3 13h6v6H3v-6zm2 2v2h2v-2H5zm13-2h2v2h-2v-2zm-2 2h2v2h-2v-2zm2 2h2v2h-2v-2zm-4 0h2v2h-2v-2zm2-4h2v2h-2v-2zm-4 4h2v2h-2v-2zm-2-6h8v2h-8v-2zm-2 0h2v2h-2v-2z"/>
+                    </svg>
+                    <h5 class="text-light mb-2">Ești deja la masă?</h5>
+                    <p class="text-muted mb-0" style="font-size: 0.9rem;">Deschide camera telefonului și scanează codul QR aflat pe masa ta pentru a accesa meniul instant.</p>
+                    
+                    <!-- Buton de DEMO pentru facultate (simuleaza scanarea) -->
+                    <button type="button" class="btn btn-sm btn-outline-light mt-3" onclick="window.location.href='meniu.html'">[Demo] Simulează Scanare</button>
+                </div>
+
+                <!-- Fallback: Introducere manuala (ascuns initial) -->
+                <div id="manualInputBox" class="mb-4 d-none">
+                    <label class="form-label">Introdu Codul Mesei</label>
+                    <input type="text" class="form-control" placeholder="Ex: MASA-04">
+                    <button type="button" class="btn btn-elegant w-100 mt-3" onclick="window.location.href='meniu.html'">Deschide Meniul</button>
+                </div>
+
+                <div class="text-center mt-3">
+                    <span class="fallback-link" id="toggleInputBtn">Nu poți scana? Introdu codul manual.</span>
+                </div>
+            </form>
+
+            <!-- 2. FORMULAR: STAFF -->
+            <form id="formStaff" class="auth-form d-none">
+                <div class="mb-4">
+                    <label class="form-label">ID Angajat</label>
+                    <input type="text" class="form-control" placeholder="Ex: OSP-102" required>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label">Parolă</label>
+                    <input type="password" class="form-control" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn btn-elegant w-100">Log in Staff</button>
+            </form>
+
+            <!-- 3. FORMULAR: ADMIN -->
+            <form id="formAdmin" class="auth-form d-none">
+                <div class="mb-4">
+                    <label class="form-label">Cont Administrator</label>
+                    <input type="text" class="form-control" placeholder="Nume utilizator" required>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label">Parolă Securizată</label>
+                    <input type="password" class="form-control" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn btn-elegant w-100">Log in Admin</button>
+            </form>
+
+        </div>
+    </div>
+
+    <script>
+        // Logica pentru schimbarea rolurilor (Client / Staff / Admin)
+        const roleRadios = document.querySelectorAll('input[name="roleType"]');
+        const formUser = document.getElementById('formUser');
+        const formStaff = document.getElementById('formStaff');
+        const formAdmin = document.getElementById('formAdmin');
+
+        roleRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                formUser.classList.add('d-none');
+                formStaff.classList.add('d-none');
+                formAdmin.classList.add('d-none');
+
+                if (this.value === 'user') formUser.classList.remove('d-none');
+                else if (this.value === 'staff') formStaff.classList.remove('d-none');
+                else if (this.value === 'admin') formAdmin.classList.remove('d-none');
+            });
+        });
+
+        // Logica pentru Fallback-ul QR (Ascunde instructiunile QR si arata caseta de text)
+        const toggleInputBtn = document.getElementById('toggleInputBtn');
+        const qrInstruction = document.getElementById('qrInstruction');
+        const manualInputBox = document.getElementById('manualInputBox');
+
+        toggleInputBtn.addEventListener('click', function() {
+            if (manualInputBox.classList.contains('d-none')) {
+                qrInstruction.classList.add('d-none');
+                manualInputBox.classList.remove('d-none');
+                toggleInputBtn.innerText = "Înapoi la instrucțiunile QR";
+            } else {
+                qrInstruction.classList.remove('d-none');
+                manualInputBox.classList.add('d-none');
+                toggleInputBtn.innerText = "Nu poți scana? Introdu codul manual.";
+            }
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
