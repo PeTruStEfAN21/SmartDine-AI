@@ -126,3 +126,20 @@ h1, h2, h3, h4, h5, .brand-font {
     background-color: #2a2623;
     color: #fff;
 }
+
+/* Bara de Căutare (Search Bar) */
+.elegant-input-group {
+    border: 1px solid rgba(108, 117, 125, 0.4);
+    border-radius: 30px;
+    background-color: var(--card-bg);
+    transition: all 0.3s ease;
+    max-width: 400px;
+}
+
+.elegant-input-group:focus-within {
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 10px rgba(220, 179, 123, 0.2);
+}
+.elegant-input-group .form-control::placeholder {
+    color: var(--text-muted);
+}

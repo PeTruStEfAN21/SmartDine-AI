@@ -4,6 +4,7 @@ class Produs(models.Model):
     nume = models.CharField(max_length=100)
     descriere = models.TextField()
     pret = models.DecimalField(max_digits=6, decimal_places=2)
+    tip_produs = models.CharField(max_length=100, null=True, blank=True)
     imagine_url = models.URLField(blank=True, null=True, default='https://via.placeholder.com/400x300?text=Fara+Imagine')
     disponibil = models.BooleanField(default=True)
 

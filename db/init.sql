@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS produse (
     descriere TEXT, 
     pret NUMERIC(10, 2) NOT NULL,
     categorie TEXT NOT NULL, 
+    tip_produs TEXT,
     disponibil BOOLEAN DEFAULT TRUE,
     imagine_url TEXT,
     created_at TIMESTAMPTZ DEFAULT NOW()
