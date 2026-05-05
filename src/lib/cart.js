@@ -15,9 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Adăugarea produselor în coș (din pagina principală)
     document.querySelectorAll('.btn-add-cart').forEach(button => {
         button.addEventListener('click', (e) => {
-            const id = button.getAttribute('data-id');
-            const name = button.getAttribute('data-name');
-            const price = parseFloat(button.getAttribute('data-price'));
+            const id = e.target.getAttribute('data-id');
+            const name = e.target.getAttribute('data-name');
+            const price = parseFloat(e.target.getAttribute('data-price'));
 
             addToCart(id, name, price);
             
@@ -113,54 +113,50 @@ document.addEventListener('DOMContentLoaded', () => {
         if (cartTotalPrice) cartTotalPrice.innerText = `${totalCost} Lei`;
     }
 
-    // 8. Trimite comanda catre Backend (Checkout)
+    // 8. Trimiterea comenzii catre Server (Checkout)
     const btnCheckout = document.getElementById('btn-checkout');
     if (btnCheckout) {
         btnCheckout.addEventListener('click', async () => {
             if (cart.length === 0) {
-                alert('Coșul este gol!');
+                alert('Coșul tău este gol. Adaugă preparate înainte de a comanda!');
                 return;
             }
 
-            // Preluăm CSRF token-ul din meta tag (adăugat în HTML) pentru securitate
-            const csrfMeta = document.querySelector('meta[name="csrf-token"]');
-            const csrfToken = csrfMeta ? csrfMeta.getAttribute('content') : '';
+            // Preluam tokenul de securitate CSRF din HTML
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            
+            // Momentan simulam masa, pana legam codul QR. Ex: Preluam din URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const masa = urlParams.get('masa') || 'La Pachet / Necunoscut';
+
+            btnCheckout.innerText = 'Se trimite...';
+            btnCheckout.disabled = true;
 
             try {
-                // Dezactivăm butonul temporar pentru a preveni spam-ul/dubla trimitere
-                btnCheckout.disabled = true;
-                btnCheckout.innerText = 'Se trimite...';
-
                 const response = await fetch('/plaseaza-comanda/', {
                     method: 'POST',
                     headers: { 
                         'Content-Type': 'application/json',
                         'X-CSRFToken': csrfToken
                     },
-                    body: JSON.stringify({ cart: cart })
+                    body: JSON.stringify({ cart: cart, masa: masa })
                 });
-                
                 const data = await response.json();
                 
                 if (response.ok) {
-                    alert('Comandă plasată cu succes! ID Comandă: ' + data.comanda_id);
-                    cart = []; // Golim coșul în memorie
-                    saveAndRender(); // Actualizăm UI-ul instant
-                    
-                    // Închidem panoul lateral elegant
-                    const cartPanelElement = document.getElementById('cartPanel');
-                    const cartPanel = bootstrap.Offcanvas.getInstance(cartPanelElement);
-                    if (cartPanel) cartPanel.hide();
+                    alert('Comandă plasată cu succes! Se prepară... (ID: ' + data.comanda_id + ')');
+                    cart = []; // Golim cosul
+                    saveAndRender();
+                    bootstrap.Offcanvas.getInstance(document.getElementById('cartPanel')).hide();
                 } else {
-                    alert('Eroare: ' + (data.error || 'A apărut o eroare necunoscută.'));
+                    alert('Eroare: ' + data.error);
                 }
             } catch (error) {
-                console.error('Eroare la trimiterea comenzii:', error);
-                alert('A apărut o problemă la plasarea comenzii. Verificați conexiunea.');
+                console.error(error);
+                alert('A apărut o problemă la plasarea comenzii.');
             } finally {
-                // Reactivăm butonul în caz că user-ul vrea să facă altă comandă
-                btnCheckout.disabled = false;
                 btnCheckout.innerText = 'Trimite Comanda →';
+                btnCheckout.disabled = false;
             }
         });
     }
