@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ro">
 <head>
@@ -14,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     
     <!-- CSS-ul nostru separat -->
-    <link rel="stylesheet" href="../static/css/login.css">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
 </head>
 <body>
 
@@ -51,14 +52,14 @@
                     <p class="text-muted mb-0" style="font-size: 0.9rem;">Deschide camera telefonului și scanează codul QR aflat pe masa ta pentru a accesa meniul instant.</p>
                     
                     <!-- Buton de DEMO pentru facultate (simuleaza scanarea) -->
-                    <button type="button" class="btn btn-sm btn-outline-light mt-3" onclick="window.location.href='meniu.html'">[Demo] Simulează Scanare</button>
+                    <button type="button" class="btn btn-sm btn-outline-light mt-3" onclick="window.location.href='/meniu/'">[Demo] Simulează Scanare</button>
                 </div>
 
                 <!-- Fallback: Introducere manuala (ascuns initial) -->
                 <div id="manualInputBox" class="mb-4 d-none">
                     <label class="form-label">Introdu Codul Mesei</label>
                     <input type="text" class="form-control" placeholder="Ex: MASA-04">
-                    <button type="button" class="btn btn-elegant w-100 mt-3" onclick="window.location.href='meniu.html'">Deschide Meniul</button>
+                    <button type="button" class="btn btn-elegant w-100 mt-3" onclick="window.location.href='/meniu/'">Deschide Meniul</button>
                 </div>
 
                 <div class="text-center mt-3">
@@ -67,7 +68,7 @@
             </form>
 
             <!-- 2. FORMULAR: STAFF -->
-            <form id="formStaff" class="auth-form d-none">
+            <form id="formStaff" class="auth-form d-none" action="/bucatarie/" method="GET">
                 <div class="mb-4">
                     <label class="form-label">ID Angajat</label>
                     <input type="text" class="form-control" placeholder="Ex: OSP-102" required>
@@ -80,7 +81,7 @@
             </form>
 
             <!-- 3. FORMULAR: ADMIN -->
-            <form id="formAdmin" class="auth-form d-none">
+            <form id="formAdmin" class="auth-form d-none" action="/admin/" method="GET">
                 <div class="mb-4">
                     <label class="form-label">Cont Administrator</label>
                     <input type="text" class="form-control" placeholder="Nume utilizator" required>

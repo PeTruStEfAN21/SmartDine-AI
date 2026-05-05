@@ -59,7 +59,7 @@ ROOT_URLCONF = 'alacarte_core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -81,7 +81,8 @@ WSGI_APPLICATION = 'alacarte_core.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgres://postgres:MDSmecher12!@db.hebmbohhyvhalleodpnd.supabase.co:5432/postgres',
+        # Înlocuiește link-ul de mai jos cu cel pe care l-ai copiat, și pune parola MDSmecher12%21
+        default='postgresql://postgres.hebmbohhyvhalleodpnd:MDSmecher12%21@aws-1-eu-west-3.pooler.supabase.com:5432/postgres',
         conn_max_age=600,
     )
 }
@@ -121,3 +122,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
