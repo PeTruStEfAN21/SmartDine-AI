@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ro">
 <head>
@@ -16,17 +17,17 @@
     <script src="https://kit.fontawesome.com/9c4030b637.js" crossorigin="anonymous"></script>
     
     <!-- CSS -->
-    <link rel="stylesheet" href="../static/css/general.css">
+    <link rel="stylesheet" href="{% static 'css/general.css' %}">
 </head>
 <body>
 
     <!-- Bara nav fixa -->
     <nav class="navbar navbar-expand-lg fixed-top navbar-app">
         <div class="container">
-            <a class="navbar-brand brand-font" href="#">A La Carte.</a>
+            <a class="navbar-brand brand-font" href="/">A La Carte.</a>
             <div class="ms-auto d-flex gap-3">
                 <button class="btn btn-outline-light border-0">
-                    <a href="index.html" class="text-decoration-none text-light">Autentificare</a>
+                    <a href="/" class="text-decoration-none text-light">Autentificare</a>
                 </button>
                 
                 <button class="btn" style="background-color: var(--accent-gold); color: var(--primary-dark); font-weight: bold;" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartPanel" aria-controls="cartPanel">
@@ -54,47 +55,21 @@
         <!-- Grila de Produse -->
         <div class="row g-4 mt-2">
             
+            {% for produs in produse %}
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="product-card">
-                    <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?q=80&w=1000&auto=format&fit=crop" class="product-img" alt="Filet Mignon">
+                    <img src="{{ produs.imagine_url }}" class="product-img" alt="{{ produs.nume }}">
                     <div class="product-body">
-                        <h4 class="product-title">Fillet Mignon</h4>
-                        <p class="product-desc">Mușchiuleț de vită maturat 21 de zile, piure de trufe, sparanghel tras în unt și jus de vițel.</p>
+                        <h4 class="product-title">{{ produs.nume }}</h4>
+                        <p class="product-desc">{{ produs.descriere }}</p>
                         <div class="product-footer">
-                            <span class="product-price">180 Lei</span>
-                            <button class="btn-add-cart" data-id="1" data-name="Fillet Mignon" data-price="180">+ Adaugă</button>
+                            <span class="product-price">{{ produs.pret }} Lei</span>
+                            <button class="btn-add-cart" data-id="{{ produs.id }}" data-name="{{ produs.nume }}" data-price="{{ produs.pret }}">+ Adaugă</button>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="product-card">
-                    <img src="https://images.unsplash.com/photo-1633504581786-316c8002b1b9?q=80&w=1000&auto=format&fit=crop" class="product-img" alt="Risotto">
-                    <div class="product-body">
-                        <h4 class="product-title">Risotto cu Fructe de Mare</h4>
-                        <p class="product-desc">Orez arborio fin, scoici Saint Jacques, creveți tiger, șofran infuzat și parmezan maturat.</p>
-                        <div class="product-footer">
-                            <span class="product-price">125 Lei</span>
-                            <button class="btn-add-cart" data-id="2" data-name="Risotto cu Fructe de Mare" data-price="125">+ Adaugă</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="product-card">
-                    <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=1000&auto=format&fit=crop" class="product-img" alt="Somon">
-                    <div class="product-body">
-                        <h4 class="product-title">Somon Sălbatic Glazurat</h4>
-                        <p class="product-desc">File de somon sălbatic, piure de mazăre fină, sos de lămâie cu capere și microplante.</p>
-                        <div class="product-footer">
-                            <span class="product-price">95 Lei</span>
-                            <button class="btn-add-cart" data-id="3" data-name="Somon Sălbatic Glazurat" data-price="95">+ Adaugă</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
 
         </div>
     </div>
@@ -120,7 +95,7 @@
                     <span class="fs-4 fw-bold" style="color: var(--primary-dark);" id="cart-total-price">0 Lei</span>
                 </div>
                 
-                <button class="btn w-100" style="background-color: var(--primary-dark); color: var(--accent-gold); padding: 12px; font-size: 1.1rem; border-radius: 12px; font-weight: bold; letter-spacing: 1px;">
+                <button id="btn-checkout" class="btn w-100" style="background-color: var(--primary-dark); color: var(--accent-gold); padding: 12px; font-size: 1.1rem; border-radius: 12px; font-weight: bold; letter-spacing: 1px;">
                     Trimite Comanda →
                 </button>
             </div>
@@ -134,5 +109,37 @@
     <!-- Bootstrap JS pt offcanvas -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+    <!-- Script trimitere comanda catre backend -->
+    <script>
+        document.getElementById('btn-checkout').addEventListener('click', async () => {
+            // Extragem coșul salvat de scriptul tău `cart.js` din localStorage
+            const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            if (cartItems.length === 0) {
+                alert('Coșul este gol!');
+                return;
+            }
+
+            try {
+                const response = await fetch('/plaseaza-comanda/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ cart: cartItems })
+                });
+                const data = await response.json();
+                
+                if (response.ok) {
+                    alert('Comandă plasată cu succes! ID Comandă: ' + data.comanda_id);
+                    localStorage.removeItem('cart'); // Golim cosul local
+                    window.location.reload(); // Reincarcam pagina pentru a goli coșul din UI
+                } else {
+                    alert('Eroare: ' + data.error);
+                }
+            } catch (error) {
+                console.error(error);
+                alert('A apărut o problemă la plasarea comenzii.');
+            }
+        });
+    </script>
 </body>
 </html>
