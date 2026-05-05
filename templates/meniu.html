@@ -30,7 +30,7 @@
                 </button>
                 
                 <button class="btn" style="background-color: var(--accent-gold); color: var(--primary-dark); font-weight: bold;" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartPanel" aria-controls="cartPanel">
-                    <i class="fa-solid fa-receipt"></i> Coș (2)
+                    <i class="fa-solid fa-receipt"></i> Coș (<span id="cart-count">0</span>)
                 </button>
             </div>
         </div>
@@ -62,7 +62,7 @@
                         <p class="product-desc">Mușchiuleț de vită maturat 21 de zile, piure de trufe, sparanghel tras în unt și jus de vițel.</p>
                         <div class="product-footer">
                             <span class="product-price">180 Lei</span>
-                            <button class="btn-add-cart">+ Adaugă</button>
+                            <button class="btn-add-cart" data-id="1" data-name="Fillet Mignon" data-price="180">+ Adaugă</button>
                         </div>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
                         <p class="product-desc">Orez arborio fin, scoici Saint Jacques, creveți tiger, șofran infuzat și parmezan maturat.</p>
                         <div class="product-footer">
                             <span class="product-price">125 Lei</span>
-                            <button class="btn-add-cart">+ Adaugă</button>
+                            <button class="btn-add-cart" data-id="2" data-name="Risotto cu Fructe de Mare" data-price="125">+ Adaugă</button>
                         </div>
                     </div>
                 </div>
@@ -90,7 +90,7 @@
                         <p class="product-desc">File de somon sălbatic, piure de mazăre fină, sos de lămâie cu capere și microplante.</p>
                         <div class="product-footer">
                             <span class="product-price">95 Lei</span>
-                            <button class="btn-add-cart">+ Adaugă</button>
+                            <button class="btn-add-cart" data-id="3" data-name="Somon Sălbatic Glazurat" data-price="95">+ Adaugă</button>
                         </div>
                     </div>
                 </div>
@@ -109,37 +109,15 @@
         
         <div class="offcanvas-body d-flex flex-column">
             
-            <!-- Lista de produse din cos (Mock Data) -->
-            <div class="flex-grow-1 overflow-auto">
-                
-                <!-- Produs 1 in cos -->
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <div>
-                        <h6 class="mb-0" style="font-weight: 700;">Filet Mignon</h6>
-                        <small class="text-muted">1 buc x 180 Lei</small>
-                    </div>
-                    <span class="fw-bold">180 Lei</span>
-                    <!-- Buton de stergere din cos -->
-                    <button class="btn btn-sm btn-outline-danger border-0">🗑️</button>
-                </div>
-
-                <!-- Produs 2 in cos -->
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <div>
-                        <h6 class="mb-0" style="font-weight: 700;">Risotto cu Fructe de Mare</h6>
-                        <small class="text-muted">1 buc x 125 Lei</small>
-                    </div>
-                    <span class="fw-bold">125 Lei</span>
-                    <button class="btn btn-sm btn-outline-danger border-0">🗑️</button>
-                </div>
-
+            <!-- Lista de produse din cos injectata prin cart.js -->
+            <div class="flex-grow-1 overflow-auto" id="cart-items-container">
             </div>
 
             <!-- Sectiunea de Total si Buton Checkout -->
             <div class="border-top pt-3 mt-3">
                 <div class="d-flex justify-content-between mb-3">
                     <span class="fs-5 text-muted">Total estimat:</span>
-                    <span class="fs-4 fw-bold" style="color: var(--primary-dark);">305 Lei</span>
+                    <span class="fs-4 fw-bold" style="color: var(--primary-dark);" id="cart-total-price">0 Lei</span>
                 </div>
                 
                 <button class="btn w-100" style="background-color: var(--primary-dark); color: var(--accent-gold); padding: 12px; font-size: 1.1rem; border-radius: 12px; font-weight: bold; letter-spacing: 1px;">
@@ -149,6 +127,9 @@
 
         </div>
     </div>
+
+    <!-- Scriptul nostru pentru cos -->
+    <script src="../src/lib/cart.js"></script>
 
     <!-- Bootstrap JS pt offcanvas -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
